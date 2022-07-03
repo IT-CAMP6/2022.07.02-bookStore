@@ -1,22 +1,53 @@
 function validateLoginForm() {
-    var login = document.getElementById("login").value;
-    var password = document.getElementById("password").value;
+    var login = document.getElementById("login");
+    var password = document.getElementById("password");
 
     var result = true;
 
-    if(login.length < 5) {
+    if(login.value.length < 5) {
         result = false;
-        document.getElementById("login").style.background = "#ff0000";
+        login.style.background = "#ff0000";
     } else {
-        document.getElementById("login").style.background = "#ffffff";
+        login.style.background = "#ffffff";
     }
 
-    if(password.length < 5) {
+    if(password.value.length < 5) {
         result = false;
-        document.getElementById("password").style.background = "#ff0000";
+        password.style.background = "#ff0000";
     } else {
-        document.getElementById("password").style.background = "#ffffff";
+        password.style.background = "#ffffff";
     }
 
     return result;
+}
+
+function validateRegisterForm() {
+    var login = document.getElementById("login");
+    var password = document.getElementById("password");
+    var password2 = document.getElementById("password2");
+
+    var result = true;
+
+        if(login.value.length < 5) {
+            result = false;
+            login.style.background = "#ff0000";
+        } else {
+            login.style.background = "#ffffff";
+        }
+
+        if(password.value.length < 5) {
+            result = false;
+            password.style.background = "#ff0000";
+        } else {
+            password.style.background = "#ffffff";
+        }
+
+        if(password2.value.length < 5 || password2.value !== password.value) {
+            result = false;
+            password2.style.background = "#ff0000";
+        } else {
+            password2.style.background = "#ffffff";
+        }
+
+        return result;
 }

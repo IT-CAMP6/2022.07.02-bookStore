@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/form.css">
+    <script src="/validation.js"></script>
     <title>BookStore</title>
 </head>
 <body>
@@ -13,13 +14,14 @@
 <div id="menu">
     <a href="/main">Strona Główna</a>
     <a href="/contact">Kontakt</a>
-    <a href="/login">Login</a>
+    <a href="/login" th:if="${logged == false}">Login</a>
+    <a href="/logout" th:if="${logged == true}">Wyloguj</a>
 </div>
 <div id="content">
-    <form method="post">
-        <input type="text" placeholder="Login" th:field="*{user.login}">
-        <input type="password" placeholder="Hasło" th:field="*{user.password}">
-        <input type="password" placeholder="Powtórz hasło" name="password2">
+    <form method="post" onsubmit="return validateRegisterForm()">
+        <input type="text" placeholder="Login" th:field="*{user.login}" id="login">
+        <input type="password" placeholder="Hasło" th:field="*{user.password}" id="password">
+        <input type="password" placeholder="Powtórz hasło" name="password2" id="password2">
         <input type="submit" value="OK">
     </form>
 </div>

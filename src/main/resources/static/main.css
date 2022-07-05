@@ -29,6 +29,14 @@
     color: white;
 }
 
+#menu #user-login {
+    font-size: 20px;
+    color: black;
+    margin: 5px 15px;
+    padding: 5px 10px;
+    display: inline-block;
+}
+
 #content {
     width: 70%;
     margin: 15px auto;

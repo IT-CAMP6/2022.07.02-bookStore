@@ -8,19 +8,12 @@
     <title>BookStore</title>
 </head>
 <body>
-<a href="/main" id="logo">
-    <img src="/logo.png">
-</a>
-<div id="menu">
-    <a href="/main">Strona Główna</a>
-    <a href="/contact">Kontakt</a>
-    <a href="/login" th:if="${logged == false}">Login</a>
-    <a href="/logout" th:if="${logged == true}">Wyloguj</a>
-</div>
+<div th:replace="fragments.html :: logo"></div>
+<div th:replace="fragments.html :: menu"></div>
 <div id="content">
     <form method="post" onsubmit="return validateLoginForm()">
-        <input type="text" placeholder="Login" th:field="*{user.login}" id="login">
-        <input type="password" placeholder="Hasło" th:field="*{user.password}" id="password">
+        <input type="text" placeholder="Login" th:field="*{userModel.login}" id="login">
+        <input type="password" placeholder="Hasło" th:field="*{userModel.password}" id="password">
         <input type="submit" value="Zaloguj">
     </form>
     <a href="/register">Zarejestruj</a>

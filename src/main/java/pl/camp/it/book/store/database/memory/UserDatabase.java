@@ -14,8 +14,8 @@ public class UserDatabase implements IUserDAO {
     private List<User> users = new ArrayList<>();
 
     public UserDatabase() {
-        users.add(new User(1, "admin", "admin"));
-        users.add(new User(2, "janusz", "janusz"));
+        users.add(new User(1, "admin", "21232f297a57a5a743894a0e4a801fc3"));
+        users.add(new User(2, "janusz", "087d9c5e13bdd64a82bef8e013625c32"));
     }
 
     public List<User> getUsers() {

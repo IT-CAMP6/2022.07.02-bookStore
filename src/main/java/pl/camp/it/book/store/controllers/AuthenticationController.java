@@ -7,30 +7,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.camp.it.book.store.database.IUserDAO;
 import pl.camp.it.book.store.exceptions.LoginAlreadyExistException;
 import pl.camp.it.book.store.exceptions.ValidationException;
 import pl.camp.it.book.store.model.User;
-import pl.camp.it.book.store.services.AuthenticationService;
+import pl.camp.it.book.store.services.IAuthenticationService;
 import pl.camp.it.book.store.session.SessionObject;
 import pl.camp.it.book.store.validators.UserDataValidator;
 
 import javax.annotation.Resource;
-import java.util.Optional;
 
 @Controller
 public class AuthenticationController {
 
     @Autowired
-    AuthenticationService authenticationService;
+    IAuthenticationService authenticationService;
 
     @Resource
     SessionObject sessionObject;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("logged", this.sessionObject.isLogged());
+        model.addAttribute("userModel", new User());
+        this.authenticationService.addCommonInfoToModel(model);
         return "login";
     }
 
@@ -51,8 +49,8 @@ public class AuthenticationController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("logged", this.sessionObject.isLogged());
+        model.addAttribute("userModel", new User());
+        this.authenticationService.addCommonInfoToModel(model);
         return "register";
     }
 

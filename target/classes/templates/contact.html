@@ -6,15 +6,8 @@
   <title>BookStore</title>
 </head>
 <body>
-<a href="/main" id="logo">
-  <img src="/logo.png">
-</a>
-<div id="menu">
-  <a href="/main">Strona Główna</a>
-  <a href="/contact">Kontakt</a>
-  <a href="/login" th:if="${logged == false}">Login</a>
-  <a href="/logout" th:if="${logged == true}">Wyloguj</a>
-</div>
+<div th:replace="fragments.html :: logo"></div>
+<div th:replace="fragments.html :: menu"></div>
 <div id="content">
   Witamy w księgarni!!<br>
   ul. Ogrodowa 10<br>

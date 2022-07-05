@@ -6,16 +6,13 @@
     <title>BookStore</title>
 </head>
 <body>
-<a href="/main" id="logo">
-    <img src="/logo.png">
-</a>
-<div id="menu">
-    <a href="/main">Strona Główna</a>
-    <a href="/contact">Kontakt</a>
-    <a href="/login" th:if="${logged == false}">Login</a>
-    <a href="/logout" th:if="${logged == true}">Wyloguj</a>
-</div>
+<div th:replace="fragments.html :: logo"></div>
+<div th:replace="fragments.html :: menu"></div>
 <div id="content">
+    <form method="post" action="/find">
+        <input type="text" placeholder="Szukaj" name="pattern" th:value="${pattern}">
+        <input type="submit" value="Szukaj">
+    </form>
     <div class="book" th:each="book : ${books}">
         <div th:text="${book.title}" class="title"></div>
         <div th:text="${book.author}" class="author"></div>

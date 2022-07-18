@@ -94,3 +94,9 @@
 .book .info {
     margin-top: 10px;
 }
+
+.add-to-basket-button {
+    display: inline-block;
+    font-size: 17px;
+    margin-left: 50px;
+}

@@ -21,6 +21,7 @@
             <div th:text="'Cena: ' + ${book.price} + 'zł'" class="price"></div>
             <div th:text="'ISBN: ' + ${book.isbn}" class="isbn"></div>
             <div th:text="'Ilość: ' + ${book.quantity}" class="quantity"></div>
+            <a th:if="${book.quantity > 0 and logged == true}" th:href="@{/basket/add/{id}(id=${book.id})}" class="add-to-basket-button">Do koszyka</a>
         </div>
     </div>
 </div>

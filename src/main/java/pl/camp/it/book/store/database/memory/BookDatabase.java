@@ -3,11 +3,12 @@ package pl.camp.it.book.store.database.memory;
 import org.springframework.stereotype.Component;
 import pl.camp.it.book.store.database.IBookDAO;
 import pl.camp.it.book.store.model.Book;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Component
 public class BookDatabase implements IBookDAO {
     private List<Book> books = new ArrayList<>();
 
@@ -24,5 +25,15 @@ public class BookDatabase implements IBookDAO {
 
     public List<Book> getBooks() {
         return books;
+    }
+
+    @Override
+    public List<Book> getFilteredBooks(String pattern) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public Optional<Book> getBookById(int id) {
+        throw new NotImplementedException();
     }
 }

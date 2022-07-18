@@ -2,13 +2,20 @@ package pl.camp.it.book.store.session;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
+import pl.camp.it.book.store.model.Book;
+import pl.camp.it.book.store.model.OrderPosition;
 import pl.camp.it.book.store.model.User;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 @SessionScope
 public class SessionObject {
     private User user = null;
     private String pattern = null;
+
+    private Set<OrderPosition> basket = new HashSet<>();
 
     public boolean isLogged() {
         return this.user != null;
@@ -28,5 +35,13 @@ public class SessionObject {
 
     public void setPattern(String pattern) {
         this.pattern = pattern;
+    }
+
+    public Set<OrderPosition> getBasket() {
+        return basket;
+    }
+
+    public void setBasket(Set<OrderPosition> basket) {
+        this.basket = basket;
     }
 }

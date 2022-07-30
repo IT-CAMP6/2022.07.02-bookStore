@@ -39,4 +39,14 @@ public class BasketServiceImpl implements IBasketService {
             basket.add(orderPosition);
         }
     }
+
+    @Override
+    public double calculateBasketSum() {
+        double sum = 0.0;
+        for(OrderPosition orderPosition : this.sessionObject.getBasket()) {
+            sum += orderPosition.getQuantity() * orderPosition.getBook().getPrice();
+        }
+
+        return sum;
+    }
 }

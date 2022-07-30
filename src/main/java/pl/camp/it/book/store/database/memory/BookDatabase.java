@@ -1,6 +1,5 @@
 package pl.camp.it.book.store.database.memory;
 
-import org.springframework.stereotype.Component;
 import pl.camp.it.book.store.database.IBookDAO;
 import pl.camp.it.book.store.model.Book;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -34,6 +33,11 @@ public class BookDatabase implements IBookDAO {
 
     @Override
     public Optional<Book> getBookById(int id) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public void updateBook(Book book) {
         throw new NotImplementedException();
     }
 }

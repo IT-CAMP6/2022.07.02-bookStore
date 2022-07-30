@@ -9,4 +9,5 @@ public interface IBookDAO {
     List<Book> getBooks();
     List<Book> getFilteredBooks(String pattern);
     Optional<Book> getBookById(int id);
+    void updateBook(Book book);
 }

@@ -87,4 +87,22 @@ public class BookDAOImpl implements IBookDAO {
         }
         return Optional.empty();
     }
+
+    @Override
+    public void updateBook(Book book) {
+        try {
+            String sql = "UPDATE tbook SET title = ?, author = ?, description = ?, price = ?, isbn = ?, quantity = ? WHERE id = ?";
+            PreparedStatement ps = this.connection.prepareStatement(sql);
+            ps.setString(1, book.getTitle());
+            ps.setString(2, book.getAuthor());
+            ps.setString(3, book.getDescription());
+            ps.setDouble(4, book.getPrice());
+            ps.setString(5, book.getIsbn());
+            ps.setInt(6, book.getQuantity());
+            ps.setInt(7, book.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Problem z baza !!");
+        }
+    }
 }

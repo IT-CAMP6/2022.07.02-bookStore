@@ -1,5 +1,6 @@
 package pl.camp.it.book.store.database;
 
+import pl.camp.it.book.store.model.Order;
 import pl.camp.it.book.store.model.OrderPosition;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface IOrderPositionDAO {
     List<OrderPosition> getAllOrderPositions();
     void updateOrderPosition(OrderPosition orderPosition);
     void deleteOrderPosition(int id);
+    List<OrderPosition> getOrderPositionsByOrderId(int id);
 }

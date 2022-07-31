@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pl.camp.it.book.store.database.IBookDAO;
 import pl.camp.it.book.store.database.IOrderPositionDAO;
+import pl.camp.it.book.store.model.Order;
 import pl.camp.it.book.store.model.OrderPosition;
 
 import java.sql.*;
@@ -100,5 +101,25 @@ public class OrderPositionDAOImpl implements IOrderPositionDAO {
         } catch (SQLException e) {
             System.out.println("Problem z baza !!");
         }
+    }
+
+    @Override
+    public List<OrderPosition> getOrderPositionsByOrderId(int id) {
+        List<OrderPosition> result = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM torderposition WHERE order_id = ?";
+            PreparedStatement ps = this.connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                result.add(new OrderPosition(rs.getInt("id"),
+                        this.bookDAO.getBookById(rs.getInt("book_id")).orElse(null),
+                        rs.getInt("quantity"),
+                        rs.getInt("order_id")));
+            }
+        } catch (SQLException e) {
+            System.out.println("Problem z baza !!");
+        }
+        return result;
     }
 }

@@ -51,10 +51,20 @@ public class Order {
     }
 
     public enum Status {
-        NEW,
-        PAID,
-        CONFIRMED,
-        SENT,
-        DONE
+        NEW("Nowy"),
+        PAID("Opłacony"),
+        CONFIRMED("Potwierdzony"),
+        SENT("Wysłany"),
+        DONE("Zakończony");
+
+        private String textValue;
+
+        Status(String textValue) {
+            this.textValue = textValue;
+        }
+
+        public String getTextValue() {
+            return textValue;
+        }
     }
 }

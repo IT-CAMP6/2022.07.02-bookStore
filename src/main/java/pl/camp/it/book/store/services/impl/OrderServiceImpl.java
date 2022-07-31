@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -71,5 +72,25 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public List<Order> getOrdersForCurrentUser() {
         return this.orderDAO.getOrdersByUserId(this.sessionObject.getUser().getId());
+    }
+
+    @Override
+    public Optional<Order> getOrderById(int id) {
+        return this.orderDAO.getOrderById(id);
+    }
+
+    @Override
+    public List<OrderPosition> getOrderPositionsByOrderId(int id) {
+        return this.orderPositionDAO.getOrderPositionsByOrderId(id);
+    }
+
+    @Override
+    public double calculateOrderSum(List<OrderPosition> orderPositions) {
+        double sum = 0.0;
+        for(OrderPosition orderPosition : orderPositions) {
+            sum += orderPosition.getQuantity() * orderPosition.getBook().getPrice();
+        }
+
+        return sum;
     }
 }

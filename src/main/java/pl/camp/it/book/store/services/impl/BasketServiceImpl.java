@@ -7,6 +7,7 @@ import pl.camp.it.book.store.model.Book;
 import pl.camp.it.book.store.model.OrderPosition;
 import pl.camp.it.book.store.services.IBasketService;
 import pl.camp.it.book.store.session.SessionObject;
+import pl.camp.it.book.store.utils.OrderPositionsUtils;
 
 import javax.annotation.Resource;
 import java.util.Optional;
@@ -42,11 +43,6 @@ public class BasketServiceImpl implements IBasketService {
 
     @Override
     public double calculateBasketSum() {
-        double sum = 0.0;
-        for(OrderPosition orderPosition : this.sessionObject.getBasket()) {
-            sum += orderPosition.getQuantity() * orderPosition.getBook().getPrice();
-        }
-
-        return sum;
+        return OrderPositionsUtils.calculateOrderPositionsSum(this.sessionObject.getBasket());
     }
 }

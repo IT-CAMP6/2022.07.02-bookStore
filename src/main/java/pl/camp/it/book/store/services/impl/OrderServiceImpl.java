@@ -10,6 +10,7 @@ import pl.camp.it.book.store.model.Order;
 import pl.camp.it.book.store.model.OrderPosition;
 import pl.camp.it.book.store.services.IOrderService;
 import pl.camp.it.book.store.session.SessionObject;
+import pl.camp.it.book.store.utils.OrderPositionsUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -86,11 +87,6 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public double calculateOrderSum(List<OrderPosition> orderPositions) {
-        double sum = 0.0;
-        for(OrderPosition orderPosition : orderPositions) {
-            sum += orderPosition.getQuantity() * orderPosition.getBook().getPrice();
-        }
-
-        return sum;
+        return OrderPositionsUtils.calculateOrderPositionsSum(orderPositions);
     }
 }

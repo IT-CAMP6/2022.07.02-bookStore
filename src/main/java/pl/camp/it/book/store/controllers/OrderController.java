@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping(value = "/order")
 public class OrderController {
 
     @Autowired
@@ -24,20 +25,20 @@ public class OrderController {
     @Autowired
     IAuthenticationService authenticationService;
 
-    @RequestMapping(value = "/order/confirm", method = RequestMethod.GET)
+    @RequestMapping(value = "/confirm", method = RequestMethod.GET)
     public String confirmOrder() {
         this.orderService.confirmOrder();
         return "redirect:/order";
     }
 
-    @RequestMapping(value = "/order", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String orders(Model model) {
         this.authenticationService.addCommonInfoToModel(model);
         model.addAttribute("orders", this.orderService.getOrdersForCurrentUser());
         return "orders";
     }
 
-    @RequestMapping(value = "/order/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String order(@PathVariable int id, Model model) {
         this.authenticationService.addCommonInfoToModel(model);
         Optional<Order> orderBox = this.orderService.getOrderById(id);

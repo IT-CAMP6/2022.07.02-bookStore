@@ -13,6 +13,7 @@ import pl.camp.it.book.store.session.SessionObject;
 import javax.annotation.Resource;
 
 @Controller
+@RequestMapping(value = "/basket")
 public class BasketController {
 
     @Autowired
@@ -24,7 +25,7 @@ public class BasketController {
     @Resource
     SessionObject sessionObject;
 
-    @RequestMapping(value = "/basket/add/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
     public String addBookToBasket(@PathVariable int id) {
         if(!this.sessionObject.isLogged()) {
             return "redirect:/main";
@@ -33,7 +34,7 @@ public class BasketController {
         return "redirect:/main";
     }
 
-    @RequestMapping(value = "/basket", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String basket(Model model) {
         if(!this.sessionObject.isLogged()) {
             return "redirect:/main";

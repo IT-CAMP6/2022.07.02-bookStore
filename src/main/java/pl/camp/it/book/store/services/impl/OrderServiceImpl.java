@@ -3,6 +3,7 @@ package pl.camp.it.book.store.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.camp.it.book.store.database.IBookDAO;
+import pl.camp.it.book.store.database.IEntitySaver;
 import pl.camp.it.book.store.database.IOrderDAO;
 import pl.camp.it.book.store.database.IOrderPositionDAO;
 import pl.camp.it.book.store.model.Book;
@@ -14,10 +15,7 @@ import pl.camp.it.book.store.utils.OrderPositionsUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
@@ -29,10 +27,10 @@ public class OrderServiceImpl implements IOrderService {
     IOrderDAO orderDAO;
 
     @Autowired
-    IOrderPositionDAO orderPositionDAO;
+    IBookDAO bookDAO;
 
     @Autowired
-    IBookDAO bookDAO;
+    IEntitySaver entitySaver;
 
     @Override
     public void confirmOrder() {
@@ -54,17 +52,16 @@ public class OrderServiceImpl implements IOrderService {
 
         Order order = new Order();
         order.setStatus(Order.Status.NEW);
-        order.setUserId(this.sessionObject.getUser().getId());
+        order.setUser(this.sessionObject.getUser());
         order.setDate(LocalDateTime.now());
+        order.setOrderPositions(basket);
 
-        this.orderDAO.persistOrder(order);
+        this.entitySaver.persistEntity(order);
 
         for(OrderPosition orderPosition : basket) {
-            orderPosition.setOrderId(order.getId());
-            this.orderPositionDAO.persistOrderPosition(orderPosition);
             Book book = this.bookDAO.getBookById(orderPosition.getBook().getId()).get();
             book.setQuantity(book.getQuantity() - orderPosition.getQuantity());
-            this.bookDAO.updateBook(book);
+            this.entitySaver.updateEntity(book);
         }
 
         basket.clear();
@@ -82,7 +79,12 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public List<OrderPosition> getOrderPositionsByOrderId(int id) {
-        return this.orderPositionDAO.getOrderPositionsByOrderId(id);
+        Optional<Order> orderBox = this.orderDAO.getOrderById(id);
+        if(orderBox.isPresent()) {
+            return new ArrayList<>(orderBox.get().getOrderPositions());
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     @Override

@@ -1,9 +1,20 @@
 package pl.camp.it.book.store.model;
 
-public class Book {
+import org.hibernate.annotations.Type;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name = "tbook")
+public class Book implements Writable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
     private String author;
+    @Type(type = "text")
     private String description;
     private double price;
     private String isbn;

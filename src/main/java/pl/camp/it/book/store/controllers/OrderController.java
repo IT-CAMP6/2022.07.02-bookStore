@@ -12,8 +12,10 @@ import pl.camp.it.book.store.model.OrderPosition;
 import pl.camp.it.book.store.services.IAuthenticationService;
 import pl.camp.it.book.store.services.IOrderService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/order")
@@ -43,10 +45,9 @@ public class OrderController {
         this.authenticationService.addCommonInfoToModel(model);
         Optional<Order> orderBox = this.orderService.getOrderById(id);
         if(orderBox.isPresent()) {
-            List<OrderPosition> orderPositionList = this.orderService.getOrderPositionsByOrderId(id);
+            Set<OrderPosition> orderPositionList = orderBox.get().getOrderPositions();
             model.addAttribute("order", orderBox.get());
-            model.addAttribute("orderPositions", orderPositionList);
-            model.addAttribute("orderSum", this.orderService.calculateOrderSum(orderPositionList));
+            model.addAttribute("orderSum", this.orderService.calculateOrderSum(new ArrayList<>(orderPositionList)));
             return "order";
         }
         return "redirect:/main";

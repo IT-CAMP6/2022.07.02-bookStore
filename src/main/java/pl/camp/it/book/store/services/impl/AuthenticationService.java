@@ -4,6 +4,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import pl.camp.it.book.store.database.IEntitySaver;
 import pl.camp.it.book.store.database.IUserDAO;
 import pl.camp.it.book.store.exceptions.LoginAlreadyExistException;
 import pl.camp.it.book.store.model.User;
@@ -18,6 +19,9 @@ public class AuthenticationService implements IAuthenticationService {
 
     @Autowired
     IUserDAO userDAO;
+
+    @Autowired
+    IEntitySaver entitySaver;
 
     @Resource
     SessionObject sessionObject;
@@ -36,7 +40,7 @@ public class AuthenticationService implements IAuthenticationService {
             throw new LoginAlreadyExistException();
         }
         user.setPassword(DigestUtils.md5Hex(user.getPassword()));
-        this.userDAO.addUser(user);
+        this.entitySaver.persistEntity(user);
     }
 
     public void logout() {

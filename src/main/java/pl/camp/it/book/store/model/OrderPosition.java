@@ -1,16 +1,20 @@
 package pl.camp.it.book.store.model;
 
-public class OrderPosition {
+import javax.persistence.*;
+
+@Entity(name = "torderposition")
+public class OrderPosition implements Writable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @ManyToOne(fetch = FetchType.EAGER)
     private Book book;
     private int quantity;
-    private int orderId;
 
-    public OrderPosition(int id, Book book, int quantity, int orderId) {
+    public OrderPosition(int id, Book book, int quantity) {
         this.id = id;
         this.book = book;
         this.quantity = quantity;
-        this.orderId = orderId;
     }
 
     public OrderPosition() {
@@ -22,14 +26,6 @@ public class OrderPosition {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
     }
 
     public Book getBook() {

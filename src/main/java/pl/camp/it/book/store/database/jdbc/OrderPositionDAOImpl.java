@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public class OrderPositionDAOImpl implements IOrderPositionDAO {
 
     @Autowired
@@ -28,7 +27,7 @@ public class OrderPositionDAOImpl implements IOrderPositionDAO {
             PreparedStatement ps = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, orderPosition.getBook().getId());
             ps.setInt(2, orderPosition.getQuantity());
-            ps.setInt(3, orderPosition.getOrderId());
+            //ps.setInt(3, orderPosition.getOrderId());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             rs.next();
@@ -46,10 +45,10 @@ public class OrderPositionDAOImpl implements IOrderPositionDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                return Optional.of(new OrderPosition(rs.getInt("id"),
+                /*return Optional.of(new OrderPosition(rs.getInt("id"),
                         this.bookDAO.getBookById(rs.getInt("book_id")).orElse(null),
                         rs.getInt("quantity"),
-                        rs.getInt("order_id")));
+                        rs.getInt("order_id")));*/
             }
         } catch (SQLException e) {
             System.out.println("Problem z baza !!");
@@ -65,10 +64,10 @@ public class OrderPositionDAOImpl implements IOrderPositionDAO {
             PreparedStatement ps = this.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                result.add(new OrderPosition(rs.getInt("id"),
+                /*result.add(new OrderPosition(rs.getInt("id"),
                         this.bookDAO.getBookById(rs.getInt("book_id")).orElse(null),
                         rs.getInt("quantity"),
-                        rs.getInt("order_id")));
+                        rs.getInt("order_id")));*/
             }
         } catch (SQLException e) {
             System.out.println("Problem z baza !!");
@@ -83,7 +82,7 @@ public class OrderPositionDAOImpl implements IOrderPositionDAO {
             PreparedStatement ps = this.connection.prepareStatement(sql);
             ps.setInt(1, orderPosition.getBook().getId());
             ps.setInt(2, orderPosition.getQuantity());
-            ps.setInt(3, orderPosition.getOrderId());
+            //ps.setInt(3, orderPosition.getOrderId());
             ps.setInt(4, orderPosition.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -112,10 +111,10 @@ public class OrderPositionDAOImpl implements IOrderPositionDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                result.add(new OrderPosition(rs.getInt("id"),
+                /*result.add(new OrderPosition(rs.getInt("id"),
                         this.bookDAO.getBookById(rs.getInt("book_id")).orElse(null),
                         rs.getInt("quantity"),
-                        rs.getInt("order_id")));
+                        rs.getInt("order_id")));*/
             }
         } catch (SQLException e) {
             System.out.println("Problem z baza !!");

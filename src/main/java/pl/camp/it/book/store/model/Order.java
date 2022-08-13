@@ -1,16 +1,26 @@
 package pl.camp.it.book.store.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Order {
+@Entity(name = "torder")
+public class Order implements Writable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int userId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
+    @Enumerated(EnumType.STRING)
     private Status status;
     private LocalDateTime date;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<OrderPosition> orderPositions = new HashSet<>();
 
-    public Order(int id, int userId, Status status, LocalDateTime date) {
+    public Order(int id, User user, Status status, LocalDateTime date) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.status = status;
         this.date = date;
     }
@@ -26,12 +36,12 @@ public class Order {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Status getStatus() {
@@ -48,6 +58,14 @@ public class Order {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public Set<OrderPosition> getOrderPositions() {
+        return orderPositions;
+    }
+
+    public void setOrderPositions(Set<OrderPosition> orderPositions) {
+        this.orderPositions = orderPositions;
     }
 
     public enum Status {

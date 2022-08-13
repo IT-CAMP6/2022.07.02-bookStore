@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public class OrderDAOImpl implements IOrderDAO {
 
     @Autowired
@@ -21,7 +20,7 @@ public class OrderDAOImpl implements IOrderDAO {
         try {
             String sql = "INSERT INTO torder (user_id, status, date) VALUES (?,?,?)";
             PreparedStatement ps = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, order.getUserId());
+            //ps.setInt(1, order.getUserId());
             ps.setString(2, order.getStatus().toString());
             ps.setTimestamp(3, Timestamp.valueOf(order.getDate()));
             ps.executeUpdate();
@@ -41,10 +40,10 @@ public class OrderDAOImpl implements IOrderDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                return Optional.of(new Order(rs.getInt("id"),
+                /*return Optional.of(new Order(rs.getInt("id"),
                         rs.getInt("user_id"),
                         Order.Status.valueOf(rs.getString("status")),
-                        rs.getTimestamp("date").toLocalDateTime()));
+                        rs.getTimestamp("date").toLocalDateTime()));*/
             }
         } catch (SQLException e) {
             System.out.println("Problem z baza !!");
@@ -61,10 +60,10 @@ public class OrderDAOImpl implements IOrderDAO {
             PreparedStatement ps = this.connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                result.add(new Order(rs.getInt("id"),
+                /*result.add(new Order(rs.getInt("id"),
                         rs.getInt("user_id"),
                         Order.Status.valueOf(rs.getString("status")),
-                        rs.getTimestamp("date").toLocalDateTime()));
+                        rs.getTimestamp("date").toLocalDateTime()));*/
             }
         } catch (SQLException e) {
             System.out.println("Problem z baza !!");
@@ -77,7 +76,7 @@ public class OrderDAOImpl implements IOrderDAO {
         try {
             String sql = "UPDATE torder SET user_id = ?, status = ?, date = ? WHERE id = ?";
             PreparedStatement ps = this.connection.prepareStatement(sql);
-            ps.setInt(1, order.getUserId());
+            //ps.setInt(1, order.getUserId());
             ps.setString(2, order.getStatus().toString());
             ps.setTimestamp(3, Timestamp.valueOf(order.getDate()));
             ps.setInt(4, order.getId());
@@ -108,10 +107,10 @@ public class OrderDAOImpl implements IOrderDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                result.add(new Order(rs.getInt("id"),
+                /*result.add(new Order(rs.getInt("id"),
                         rs.getInt("user_id"),
                         Order.Status.valueOf(rs.getString("status")),
-                        rs.getTimestamp("date").toLocalDateTime()));
+                        rs.getTimestamp("date").toLocalDateTime()));*/
             }
         } catch (SQLException e) {
             System.out.println("Problem z baza !!");

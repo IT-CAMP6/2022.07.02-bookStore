@@ -16,7 +16,7 @@
     <div th:text="'Data złożenia zamówienia: ' + ${order.date}" class="date"></div>
     <div th:text="'Status: ' + ${order.status.getTextValue()}" class="status"></div>
   </div>
-  <div th:each="orderPosition : ${orderPositions}" class="order-position">
+  <div th:each="orderPosition : ${order.orderPositions}" class="order-position">
     <div th:text="${orderPosition.book.title}" class="title"></div>
     <div th:text="${orderPosition.quantity}" class="quantity"></div>
     <div th:text="${#numbers.formatDecimal(orderPosition.book.price,1,2)} + ' zł'" class="price"></div>

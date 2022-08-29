@@ -3,6 +3,7 @@ package pl.camp.it.book.store.database.hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -56,6 +57,8 @@ public class UserDAOImpl implements IUserDAO {
             tx = session.beginTransaction();
             session.save(user);
             tx.commit();
+        } catch (ConstraintViolationException e) {
+            throw e;
         } catch (Exception e) {
             if(tx != null) {
                 tx.rollback();

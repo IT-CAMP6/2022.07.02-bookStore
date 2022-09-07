@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/main.css">
+    <script src="/ajax.js"></script>
+    <script src="/jquery-3.6.1.min.js"></script>
     <title>BookStore</title>
 </head>
 <body>
@@ -21,7 +23,8 @@
             <div th:text="'Cena: ' + ${book.price} + 'zł'" class="price"></div>
             <div th:text="'ISBN: ' + ${book.isbn}" class="isbn"></div>
             <div th:text="'Ilość: ' + ${book.quantity}" class="quantity"></div>
-            <a th:if="${book.quantity > 0 and logged == true}" th:href="@{/basket/add/{id}(id=${book.id})}" class="add-to-basket-button">Do koszyka</a>
+            <!--<a th:if="${book.quantity > 0 and logged == true}" th:href="@{/basket/add/{id}(id=${book.id})}" class="add-to-basket-button">Do koszyka</a>-->
+            <div th:if="${book.quantity > 0 and logged == true}" class="add-to-basket-button" th:onclick="|addToBasket('${book.id}')|">Do koszyka</div>
         </div>
     </div>
 </div>

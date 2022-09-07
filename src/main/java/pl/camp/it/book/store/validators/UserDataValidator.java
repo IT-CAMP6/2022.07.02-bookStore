@@ -4,13 +4,16 @@ import pl.camp.it.book.store.exceptions.ValidationException;
 
 public class UserDataValidator {
     public static void validateLogin(String login) {
-        if(login.length() < 5) {
+        String regex = "^.{5,}$";
+        if(!login.matches(regex)) {
             throw new ValidationException();
         }
+
     }
 
     public static void validatePassword(String password) {
-        if(password.length() < 5) {
+        String regex = "^.{5,}$";
+        if(!password.matches(regex)) {
             throw new ValidationException();
         }
     }

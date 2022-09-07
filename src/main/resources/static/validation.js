@@ -4,7 +4,9 @@ function validateLoginForm() {
 
     var result = true;
 
-    if(login.value.length < 5) {
+    var regex = /^.{5,}$/;
+
+    if(!regex.test(login.value)) {
         result = false;
         login.style.background = "#ff0000";
     } else {

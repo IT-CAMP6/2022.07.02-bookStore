@@ -23,13 +23,20 @@ public class BasketServiceImpl implements IBasketService {
     IBookDAO bookDAO;
 
     @Override
-    public void addBookToBasket(int id) {
+    public void addBookToBasket(final int id) {
         Set<OrderPosition> basket = this.sessionObject.getBasket();
-        for(OrderPosition orderPosition : basket) {
+        /*for(OrderPosition orderPosition : basket) {
             if(orderPosition.getBook().getId() == id) {
                 orderPosition.setQuantity(orderPosition.getQuantity() + 1);
                 return;
             }
+        }*/
+
+        if(basket.stream()
+                .filter(op -> op.getBook().getId() == id)
+                .peek(op -> op.setQuantity(op.getQuantity() + 1))
+                .findFirst().isPresent()) {
+            return;
         }
 
         Optional<Book> bookBox = this.bookDAO.getBookById(id);

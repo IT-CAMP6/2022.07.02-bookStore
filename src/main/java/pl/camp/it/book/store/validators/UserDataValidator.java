@@ -8,7 +8,6 @@ public class UserDataValidator {
         if(!login.matches(regex)) {
             throw new ValidationException();
         }
-
     }
 
     public static void validatePassword(String password) {
